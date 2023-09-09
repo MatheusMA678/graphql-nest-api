@@ -1,4 +1,4 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, ID, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ConflictException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 
 import { User } from '../models/user.model';
@@ -48,7 +48,7 @@ export class UserResolver {
   }
 
   @Mutation(returns => String, { name: 'deleteUser' })
-  async deleteUserById(@Args('id', { type: () => Int }) id: number): Promise<string> {
+  async deleteUserById(@Args('id', { type: () => String! }) id: string): Promise<string> {
     const user = await this.userService.user({ id })
 
     if (!user) {
